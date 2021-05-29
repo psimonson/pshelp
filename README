@@ -1,0 +1,97 @@
+===========================================================================
+=                PSHELP v1.0 written by Philip R. Simonson                =
+===========================================================================
+    This is a simple library for making the use of the C language, a little
+easier to use. It ONLY does get input from the user right now. But, I will
+add more functionality in the near future to do more stuff. Basically,
+anything that is used a lot or make people scared to use the C language.
+Will be added to this library. Not only will it be faster to make programs
+but, it will also serve as a simple tool to learn C and how to handle it
+properly.
+==========================================================================
+                       Simple Breakdown of Functions
+==========================================================================
+string get_string(const char* prompt);
+    - Gets a string of input from the keyboard.
+
+int get_integer(const char* prompt);
+    - Gets an integer from the keyboard.
+
+long get_long(const char* prompt);
+    - Gets a long integer from the keyboard.
+
+float get_float(const char* prompt);
+    - Gets a float from the keyboard.
+
+double get_double(const char* prompt);
+    - Gets a double from the keyboard.
+==========================================================================
+                      Example Usage Of All Functions
+==========================================================================
+/*
+ * simple.c - Uses every function in the input.c source file.
+ *
+ * Author: Philip R. Simonson
+ * Date  : 05/28/2021
+ *
+ ***********************************************************************
+ */
+
+#include <stdio.h>
+#include <time.h>
+
+#include "ps_input.h" /* Include my helper input functions. */
+
+/* Entry point for test program.
+ */
+int main(void)
+{
+    struct tm tm;
+    time_t t;
+    string input;
+    int month;
+    int day;
+    int year;
+    long l;
+    float f;
+    double d;
+
+    /* Get user's name from keyboard. */
+    input = get_string("Enter your full name: ");
+
+    /* If my name was given. */
+    if(!strcmp(input, "Philip R. Simonson")) {
+        printf("Welcome master!\n");
+    }
+    /* If not my name. */
+    else {
+        printf("Welcome, %s!\n", input);
+    }
+
+    /* Get user's birth date. */
+    do {
+        input = get_string("Enter your birth date (MM/DD/YYYY): ");
+    }
+    while(sscanf(input, "%d/%d/%d", &month, &day, &year) != 3);
+
+    /* Get current date and time. */
+    t = time(NULL);
+    tm = *localtime(&t);
+
+    /* Display birth date results. */
+    printf("Birth date: %.2d/%.2d/%.2d\n", month, day, year);
+    printf("Current date: %.2d/%.2d/%.2d\n", tm.tm_mon + 1, tm.tm_mday,
+        tm.tm_year + 1900);
+    printf("Your age is: %d\n", (tm.tm_year + 1900) - year);
+
+    /* Get a long, float, double and print them. */
+    l = get_long("Enter a long integer: ");
+    f = get_float("Enter a float integer: ");
+    d = get_double("Enter a double integer: ");
+    printf("Long: %ld\nFloat: %.2f\nDouble: %.4lf\n", l, f, d);
+
+    return 0;
+}
+==========================================================================
+=                           .:[ END OF FILE ]:.                          =
+==========================================================================
