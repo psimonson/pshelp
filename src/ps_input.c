@@ -17,23 +17,12 @@
 
 static string _ps_help_string;
 
-/* Auto free string after usage.
- */
-static void _auto_free(void)
-{
-    free(_ps_help_string);
-    _ps_help_string = NULL;
-}
 /* Get an entire string from the user displaying a prompt.
  */
 string get_string(const char* message)
 {
     string output;
     int c, i, size;
-
-    // Free existing string
-    atexit(_auto_free);
-    _auto_free();
 
     // Make the initial allocation
     size = 2;

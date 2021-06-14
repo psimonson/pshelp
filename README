@@ -9,6 +9,10 @@ Will be added to this library. Not only will it be faster to make programs
 but, it will also serve as a simple tool to learn C and how to handle it
 properly.
 ==========================================================================
+                  Some Notes on this library.. please read!
+==========================================================================
+ - When ever you use the get_string() function, be sure to free the input.
+==========================================================================
                        Simple Breakdown of Functions
 ==========================================================================
 string get_string(const char* prompt);
@@ -38,9 +42,10 @@ double get_double(const char* prompt);
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
 
-#include "ps_input.h" /* Include my helper input functions. */
+#include "pshelp/ps_input.h" /* Include my helper input functions. */
 
 /* Entry point for test program.
  */
@@ -66,6 +71,7 @@ int main(void)
     /* If not my name. */
     else {
         printf("Welcome, %s!\n", input);
+        free(input);
     }
 
     /* Get user's birth date. */
@@ -90,6 +96,7 @@ int main(void)
     d = get_double("Enter a double integer: ");
     printf("Long: %ld\nFloat: %.2f\nDouble: %.4lf\n", l, f, d);
 
+    free(input);
     return 0;
 }
 ==========================================================================
